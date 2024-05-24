@@ -8,61 +8,75 @@ class Program
     {
         using (HttpClient client = new HttpClient())
         {
+
             
-            string url2 = "";
-            string url3 = "";
-            HttpResponseMessage response = await client.GetAsync(url3);
 
-            Console.WriteLine(response.StatusCode);
+            //url
 
-            if (response.IsSuccessStatusCode)
+            HttpResponseMessage response1 = await client.GetAsync(url1);
+
+
+            if (response1.IsSuccessStatusCode)
             {
-                string content = await response.Content.ReadAsStringAsync();
-                Console.WriteLine(content); //вот такой вид и хотим 
+                string json1 = await response1.Content.ReadAsStringAsync();
+                var data1 = JsonConvert.DeserializeObject<Dictionary<string, object>>(json1);
+
+                var jsonNew1 = JsonConvert.SerializeObject(data1["rates"], Newtonsoft.Json.Formatting.Indented);
+
+
+                JObject obj1 = JObject.Parse(jsonNew1);
+
+                var newDict1 = new Dictionary<string, object>();
+                newDict1.Add("timestamp", DateTime.Now);
+                newDict1.Add("base", "USD");
+
+                var ratesDict1 = new Dictionary<string, double>();
+
+                foreach (var item in obj1)
+                {
+                    ratesDict1.Add(item.Key, (double)item.Value);
+                }
+
+                newDict1.Add("rates", ratesDict1);
+
+                var json11 = JsonConvert.SerializeObject(newDict1, Newtonsoft.Json.Formatting.Indented);
+                Console.WriteLine(json11);
+
             }
 
-            //теперь надо преобразовать также: 
+
             HttpResponseMessage response2 = await client.GetAsync(url2);
 
-            string jsonResponse = await response.Content.ReadAsStringAsync();
-            var data1 = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(jsonResponse);
 
-            var jsonResponse1 = JsonConvert.SerializeObject(data1, Newtonsoft.Json.Formatting.Indented);
-            // Console.WriteLine(jsonResponse1); 
-
-
-            var a = data1["data"];
-            foreach (var item in a)
+            if (response2.IsSuccessStatusCode)
             {
-                Console.WriteLine(item.Value);
-                var outputJsond3 = JsonConvert.SerializeObject(item.Value, Newtonsoft.Json.Formatting.Indented);
-                Console.WriteLine(outputJsond3);
 
-                var data3 = JsonConvert.DeserializeObject<Dictionary<string, object>>(outputJsond3);
-                var q = JsonConvert.SerializeObject(data3, Newtonsoft.Json.Formatting.Indented);
-                Console.WriteLine(q);
+                string json2 = await response2.Content.ReadAsStringAsync();
+                var data2 = JsonConvert.DeserializeObject<Dictionary<string, Dictionary<string, object>>>(json2);
+
+                var jsonNew2 = JsonConvert.SerializeObject(data2["data"], Newtonsoft.Json.Formatting.Indented);
+
+                JObject obj2 = JObject.Parse(jsonNew2);
+
+                var newDict2 = new Dictionary<string, object>();
+                newDict2.Add("timestamp", DateTime.Now);
+                newDict2.Add("base", "USD");
+
+                var ratesDict2 = new Dictionary<string, double>();
+
+                foreach (var item in obj2)
+                {
+                    string currencyCode = item.Key;
+                    double currencyValue = (double)item.Value["value"];
+                    ratesDict2.Add(currencyCode, currencyValue);
+                }
+
+                newDict2.Add("rates", ratesDict2);
+
+                var json22 = JsonConvert.SerializeObject(newDict2, Newtonsoft.Json.Formatting.Indented);
+                Console.WriteLine(json22);
             }
-
-            var data2 = new Dictionary<string, object>
-            {
-                { "link_to_data", url2 },
-                { "base", "USD" },
-                { "rates",  data1["data"]}
-            };
-
-
-            var outputJsond = JsonConvert.SerializeObject(data2, Newtonsoft.Json.Formatting.Indented);
-            Console.WriteLine(outputJsond);
-
-
-
-
         }
+
     }
-    
 }
-//}
-//{ "rates", ((Dictionary<string, object>)data1.Keys.Any["data"]).ToDictionary(kv => kv.Key, kv => (double)kv.Value) }
-//                };
-//{ "rates", data1.ToDictionary(kv => kv.Key, kv => (double)kv.Value["value"]) }
-//};
