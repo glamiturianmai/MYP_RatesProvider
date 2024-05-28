@@ -6,7 +6,9 @@ public class Options
     {
         get
         {
-            return "";
+            //вот тут 10000 запросов 
+            return "https://openexchangerates.org/api/latest.json?app_id=";
+
         }
     }
 
@@ -14,8 +16,7 @@ public class Options
     {
         get
         {
-            return "";
+            return "https://api.currencyapi.com/v3/latest?apikey=";
         }
     }
 }
-

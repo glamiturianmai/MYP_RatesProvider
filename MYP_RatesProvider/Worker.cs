@@ -18,9 +18,9 @@ public class Worker : BackgroundService
         {
             var context = new Context();
 
-            Console.WriteLine("FirstStrategy");
-            context.SetStrategy(new FirstStrategyForChoseSourceForCurrency());
-            context.GetDataCurrency();
+            //Console.WriteLine("FirstStrategy");
+            //context.SetStrategy(new FirstStrategyForChoseSourceForCurrency());
+            //context.GetDataCurrency();
 
             Console.WriteLine();
 
