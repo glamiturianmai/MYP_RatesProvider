@@ -7,7 +7,7 @@ namespace MYP_RatesProvider.Strategies
     {
         public async Task<Dictionary<string, object>> GetData()
         {
-            string url = Options.urlFirst;
+            string url = Options.UrlFirst;
             using (HttpClient client = new HttpClient())
             {
 

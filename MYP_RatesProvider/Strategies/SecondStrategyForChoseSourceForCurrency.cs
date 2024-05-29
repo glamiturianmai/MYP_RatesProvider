@@ -10,7 +10,7 @@ namespace MYP_RatesProvider.Strategies
         {
             using (HttpClient client = new HttpClient())
             {
-                string url = Options.urlSecond;
+                string url = Options.UrlSecond;
                 HttpResponseMessage response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)

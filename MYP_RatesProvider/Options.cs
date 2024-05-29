@@ -2,7 +2,7 @@
 
 public class Options
 {
-    public static string urlFirst
+    public static string UrlFirst
     {
         get
         {
@@ -12,7 +12,7 @@ public class Options
         }
     }
 
-    public static string urlSecond
+    public static string UrlSecond
     {
         get
         {
