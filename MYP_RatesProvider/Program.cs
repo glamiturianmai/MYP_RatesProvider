@@ -6,10 +6,13 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         options.ServiceName = "RatesProvider Service";
     })
-    .ConfigureServices(services =>
+    .ConfigureServices((hostContext, services) =>
     {
+        services.AddSingleton<IConfiguration>(hostContext.Configuration);
         services.AddHostedService<Worker>();
     })
     .Build();
+
+
 
 await host.RunAsync();
