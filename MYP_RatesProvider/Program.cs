@@ -1,5 +1,6 @@
 
 using MYP_RatesProvider;
+using MYP_RatesProvider.Core;
 
 IHost host = Host.CreateDefaultBuilder(args)
     .UseWindowsService(options =>
@@ -10,6 +11,7 @@ IHost host = Host.CreateDefaultBuilder(args)
     {
         services.AddSingleton<IConfiguration>(hostContext.Configuration);
         services.AddHostedService<Worker>();
+        services.AddSingleton<RatesManager>();
     })
     .Build();
 
