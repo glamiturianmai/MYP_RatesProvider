@@ -21,14 +21,23 @@ namespace MYP_RatesProvider.Core
 
             try
             {
-                //Console.WriteLine("FirstStrategy"); //тут еще будем стучаться в раббит 
+                 //тут еще будем стучаться в раббит 
                 context.SetStrategy(new PrimaryCurrencyProvider(_configuration));
-                context.GetDataCurrency();
+                await context.GetDataCurrency();
             }
-            catch (Exception ex){
-                Console.WriteLine($"{ex.Message}");
-                context.SetStrategy(new SecondaryCurrencyProvider(_configuration));
-                context.GetDataCurrency();
+            catch (Exception ex1){
+                try
+                {
+                    //и тут
+                    Console.WriteLine($"{ex1.Message}");
+                    context.SetStrategy(new SecondaryCurrencyProvider(_configuration));
+                    await context.GetDataCurrency();
+                }
+                catch (Exception ex2)
+                {
+                    Console.WriteLine($"{ex2.Message}");
+                }
+                
             }
         }
     }

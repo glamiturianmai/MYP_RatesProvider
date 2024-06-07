@@ -15,7 +15,7 @@ namespace MYP_RatesProvider.Strategies
         {
             using var client = new HttpClient();
 
-            string urlFromAppSettings = _configuration["CurrencySources:UrlFirst:name"] + _configuration["CurrencySources:UrlFirst:app_id"];
+            string urlFromAppSettings = _configuration.GetSection("UrlArray").GetSection("0")["site"] + _configuration.GetSection("UrlArray").GetSection("0")["config"] + _configuration.GetSection("UrlArray").GetSection("0")["key"];
             HttpResponseMessage response = await client.GetAsync(urlFromAppSettings);
 
             if (response.IsSuccessStatusCode)

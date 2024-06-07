@@ -18,7 +18,7 @@ public class DataCurrency
         this._strategy = strategy;
     }
 
-    public async void GetDataCurrency()
+    public async Task GetDataCurrency()
     {
         var a = await this._strategy.GetData();
         this._strategy.ConvertDataToDictionary(a);
