@@ -1,44 +1,56 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MassTransit;
+using Messaging.Shared;
 using Microsoft.Extensions.Logging;
-using MYP_RatesProvider.Strategies;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+
 
 namespace MYP_RatesProvider.Core
 {
     public class RatesManager
     {
         private readonly ILogger<RatesManager> _logger;
-        private readonly IConfiguration _configuration;
+        private readonly DataProvider _dataProvider;
+        private readonly IPublishEndpoint _publishEndpoint;
+        private RatesInfo _dictData;
 
-        public RatesManager(ILogger<RatesManager> logger, IConfiguration configuration)
+
+        public RatesManager(ILogger<RatesManager> logger, DataProvider dataProvider, IPublishEndpoint publishEndpoint)
         {
             _logger = logger;
-            _configuration = configuration;
+            _dataProvider = dataProvider;
+            _publishEndpoint = publishEndpoint;
         }
 
-        public async Task DataService()
+        public async Task GetData()
         {
-           var context = new DataCurrency();
-
-            try
+            var numberAttempts = 0;
+            while (_dictData == null)
             {
-                 //тут еще будем стучаться в раббит 
-                context.SetStrategy(new PrimaryCurrencyProvider(_configuration));
-                await context.GetDataCurrency();
-            }
-            catch (Exception ex1){
                 try
                 {
-                    //и тут
-                    Console.WriteLine($"{ex1.Message}");
-                    context.SetStrategy(new SecondaryCurrencyProvider(_configuration));
-                    await context.GetDataCurrency();
+                    numberAttempts++;
+                    _dictData = await _dataProvider.GetDataCurrency(); 
+                    _logger.LogInformation("Successfully received the data");
+                    await _publishEndpoint.Publish<RatesInfo>(_dictData);
+                    _logger.LogInformation("Sent the data to RabbitMQ");
+                    Task.Delay(20000);
                 }
-                catch (Exception ex2)
+                catch (Exception ex1)
                 {
-                    Console.WriteLine($"{ex2.Message}");
+                    _dataProvider.SetNextStrategy();
+                    _logger.LogInformation("There is a problem with the data source, it has been changed");
                 }
-                
+
+                if (numberAttempts > 4)
+                {
+                    _logger.LogInformation("There are too many attempts to get data, there is a problem with currency sources");
+                    break;
+                }
+
+
             }
+
         }
     }
 }

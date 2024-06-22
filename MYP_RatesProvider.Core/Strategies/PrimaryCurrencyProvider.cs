@@ -1,51 +1,54 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Messaging.Shared;
+
+using MYP_RatesProvider.Core.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace MYP_RatesProvider.Strategies
 {
+
     public class PrimaryCurrencyProvider : ICurrencyStrategy
     {
-        private readonly IConfiguration _configuration;
-        public PrimaryCurrencyProvider(IConfiguration configuration)
-        {
-            _configuration = configuration;
-        }
-        public async Task<Dictionary<string, object>> GetData()
-        {
-            using var client = new HttpClient();
+        private readonly HttpService _httpService;
+        private readonly string _urlFromAppSettings;
 
-            string urlFromAppSettings = _configuration.GetSection("UrlArray").GetSection("0")["site"] + _configuration.GetSection("UrlArray").GetSection("0")["config"] + _configuration.GetSection("UrlArray").GetSection("0")["key"];
-            HttpResponseMessage response = await client.GetAsync(urlFromAppSettings);
 
-            if (response.IsSuccessStatusCode)
-            {
-                string json = await response.Content.ReadAsStringAsync();
-                return JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-            }
-            else
-            {
-                return new Dictionary<string, object> { }; 
-            }
+
+        public PrimaryCurrencyProvider(HttpService httpService, List<CurrencyProviderSettings> сurrencySources)
+        {
+            _httpService = httpService;
+            var setting = сurrencySources.Find(x => x.Id == GetId());
+            _urlFromAppSettings = setting.Site + setting.Url + setting.Key;
 
         }
 
-        public Dictionary<string, object> ConvertDataToDictionary(Dictionary<string, object> data)
+
+
+        public async Task<RatesInfo> GetData()
         {
+            var dataFromSource = await _httpService.GetDataFromSource(_urlFromAppSettings);
+            return ConvertDataToDictionary(dataFromSource);
+        }
+
+        public RatesInfo ConvertDataToDictionary(Dictionary<string, object> data)
+        {
+
             var jsonCurrency = JsonConvert.SerializeObject(data["rates"], Newtonsoft.Json.Formatting.Indented);
 
             JObject objectCurrency = JObject.Parse(jsonCurrency);
-            var currencyInf = new Dictionary<string, object>();
-            currencyInf.Add("timestamp", DateTime.Now);
+            var currencyInf = new RatesInfo();
+            currencyInf.Date = DateTime.Now;
             var currencyRates = new Dictionary<string, decimal>();
 
             foreach (var item in objectCurrency)
             {
                 currencyRates.Add((string)"USD" + item.Key, (decimal)item.Value);
             }
+            currencyInf.Rates = currencyRates;
 
-            currencyInf.Add("rates", currencyRates);
             return currencyInf;
         }
+
+        public int GetId() => 1;
     }
 }
