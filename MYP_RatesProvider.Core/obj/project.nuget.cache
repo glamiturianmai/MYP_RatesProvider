@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "YvJBoeHhKhmAv+PRIXbAs7x8Cs8V1CM8MhH+8JH2zmy2i6hC8ZyYBDWGoVhffMXM7rqh2iZSjKjBIfXH4EwUjA==",
+  "dgSpecHash": "f4E50ZBVqF4fax7jUzUE28QstZZKUPfGtLwwX9hte0WZKaovY0jBPt0i7pRKaVfGihS/ntu3h9cSExje4hpnOA==",
   "success": true,
   "projectFilePath": "C:\\Users\\dns\\Desktop\\MiraculousBackend\\MYP_RatesProvider\\MYP_RatesProvider.Core\\MYP_RatesProvider.Core.csproj",
   "expectedPackageFiles": [
@@ -17,6 +17,7 @@
     "C:\\Users\\dns\\.nuget\\packages\\microsoft.extensions.options\\8.0.0\\microsoft.extensions.options.8.0.0.nupkg.sha512",
     "C:\\Users\\dns\\.nuget\\packages\\microsoft.extensions.primitives\\8.0.0\\microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "C:\\Users\\dns\\.nuget\\packages\\newtonsoft.json\\13.0.3\\newtonsoft.json.13.0.3.nupkg.sha512",
+    "C:\\Users\\dns\\.nuget\\packages\\serilog\\4.0.0\\serilog.4.0.0.nupkg.sha512",
     "C:\\Users\\dns\\.nuget\\packages\\system.diagnostics.diagnosticsource\\8.0.0\\system.diagnostics.diagnosticsource.8.0.0.nupkg.sha512"
   ],
   "logs": []

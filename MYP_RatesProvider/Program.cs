@@ -14,12 +14,13 @@ IHost host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<RatesManager>();
         services.AddSingleton<HttpService>();
         services.AddSingleton<DataProvider>();
+        services.AddSingleton<MyService>();
         services.Configure<List<CurrencyProviderSettings>>(hostContext.Configuration.GetSection("CurrencyProviderSettings"));
 
-        services.AddMassTransit(x =>
-        {
-            x.UsingRabbitMq();
-        });
+        //services.AddMassTransit(x =>
+        //{
+        //    x.UsingRabbitMq();
+        //});
     })
     .Build();
 

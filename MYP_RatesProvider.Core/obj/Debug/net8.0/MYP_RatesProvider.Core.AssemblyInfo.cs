@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("MYP_RatesProvider.Core")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6bd408dfd1356a7807184c466ef35b3b2e263a14")]
 [assembly: System.Reflection.AssemblyProductAttribute("MYP_RatesProvider.Core")]
 [assembly: System.Reflection.AssemblyTitleAttribute("MYP_RatesProvider.Core")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

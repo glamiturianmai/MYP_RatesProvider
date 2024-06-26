@@ -1,4 +1,6 @@
 ﻿using Messaging.Shared;
+using Microsoft.Extensions.Logging;
+using MYP_RatesProvider.Core;
 using MYP_RatesProvider.Core.Services;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
@@ -10,9 +12,11 @@ namespace MYP_RatesProvider.Strategies
     {
         private readonly HttpService _httpService;
         private readonly string _urlFromAppSettings;
+        private readonly ILogger<PrimaryCurrencyProvider> _logger;
 
-        public PrimaryCurrencyProvider(HttpService httpService, List<CurrencyProviderSettings> сurrencySources)
+        public PrimaryCurrencyProvider(HttpService httpService, List<CurrencyProviderSettings> сurrencySources, ILogger<PrimaryCurrencyProvider> logger)
         {
+            _logger = logger;
             _httpService = httpService;
             var setting = сurrencySources.Find(x => x.Id == GetId());
             _urlFromAppSettings = setting.Site + setting.Url + setting.Key;
@@ -21,6 +25,7 @@ namespace MYP_RatesProvider.Strategies
         public async Task<RatesInfo> GetData()
         {
             var dataFromSource = await _httpService.GetDataFromSource(_urlFromAppSettings);
+            _logger.LogInformation("Get informations from site (Primary strategy)");
             return ConvertDataToDictionary(dataFromSource);
         }
 
@@ -39,7 +44,9 @@ namespace MYP_RatesProvider.Strategies
             }
             currencyInf.Rates = currencyRates;
 
+            _logger.LogInformation("Convert informations from site (Primary strategy)");
             return currencyInf;
+            
         }
 
         public int GetId() => 1;

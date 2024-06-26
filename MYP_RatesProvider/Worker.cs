@@ -18,11 +18,11 @@ public class Worker : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-
-
-            await _manager.GetData();
             _logger.LogInformation("Service running at: {time}", DateTimeOffset.Now);
-            await Task.Delay(3600000, stoppingToken); 
+            await _manager.GetData();
+            _logger.LogInformation("try to GetData() ");
+            
+            await Task.Delay(15000, stoppingToken); 
 
         }
     }
