@@ -5,13 +5,11 @@ namespace MYP_RatesProvider;
 public class Worker : BackgroundService
 {
     private readonly ILogger<Worker> _logger;
-    private readonly IConfiguration _configuration;
     private readonly RatesManager _manager;
 
-    public Worker(ILogger<Worker> logger, IConfiguration configuration, RatesManager manager)
+    public Worker(ILogger<Worker> logger, RatesManager manager)
     {
         _logger = logger;
-        _configuration = configuration;
         _manager = manager; //интерфейс
        
     }

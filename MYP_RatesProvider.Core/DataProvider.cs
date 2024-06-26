@@ -9,7 +9,7 @@ public class DataProvider
 {
     private ICurrencyStrategy _strategy;
 
-    private List<ICurrencyStrategy> _availableProviders = new List<ICurrencyStrategy>();
+    private List<ICurrencyStrategy> _availableProviders = [];
 
 
 

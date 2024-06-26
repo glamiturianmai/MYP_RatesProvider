@@ -10,27 +10,23 @@ namespace MYP_RatesProvider.Strategies
         private readonly HttpService _httpService;
         private readonly string _urlFromAppSettings;
 
-
         public SecondaryCurrencyProvider(HttpService httpService, List<CurrencyProviderSettings> сurrencySources)
         {
             _httpService = httpService;
-
             var setting = сurrencySources.Find(x => x.Id == GetId());
             _urlFromAppSettings = setting.Site + setting.Url + setting.Key;
         }
-
 
 
         public async Task<RatesInfo> GetData()
         {
             var dataFromSource = await _httpService.GetDataFromSource(_urlFromAppSettings);
             return ConvertDataToDictionary(dataFromSource);
-
         }
 
         public RatesInfo ConvertDataToDictionary(Dictionary<string, object> data)
         {
-            var jsonCurrency = JsonConvert.SerializeObject(data["data"], Newtonsoft.Json.Formatting.Indented);
+            var jsonCurrency = JsonConvert.SerializeObject(data["data"], Formatting.Indented);
 
             JObject objectCurrency = JObject.Parse(jsonCurrency);
 

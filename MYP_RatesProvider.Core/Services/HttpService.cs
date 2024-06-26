@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MYP_RatesProvider.Core.Exceptions;
 using Newtonsoft.Json;
 
 namespace MYP_RatesProvider.Core.Services;
 
 public class HttpService
 {
-    // GetAsync<T> //получаем c url
+
     public async Task<Dictionary<string, object>> GetDataFromSource(string urlFromAppSettings)
     {
         using var client = new HttpClient();
@@ -18,8 +18,7 @@ public class HttpService
         }
         else
         {
-            // throw some exception;
-            throw new Exception(); //я не уверена
+            throw new HttpResponseException($"request to { urlFromAppSettings} failed, response status is: {response.StatusCode}");
 
         }
 
