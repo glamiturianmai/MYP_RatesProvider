@@ -16,15 +16,16 @@ public class RatesManager
     private RatesInfo _dictData;
 
 
-    public RatesManager( DataProvider dataProvider, MyService myService/*, IPublishEndpoint publishEndpoint*/)
+    public RatesManager( DataProvider dataProvider, MyService myService, IPublishEndpoint publishEndpoint)
     {
         _myService = myService;
         _dataProvider = dataProvider;
-        //_publishEndpoint = publishEndpoint;
+        _publishEndpoint = publishEndpoint;
     }
 
     public async Task GetData()
     {
+        _dictData = null;
         var numberAttempts = 0;
         while (_dictData == null)
         {
@@ -33,9 +34,9 @@ public class RatesManager
                 numberAttempts++;
                 _dictData = await _dataProvider.GetDataCurrency();
                 _logger.Information("Successfully received the data");
-                //await _publishEndpoint.Publish<RatesInfo>(_dictData);
+                await _publishEndpoint.Publish<RatesInfo>(_dictData);
                 _logger.Information("Sent the data to RabbitMQ");
-                _myService.WriteLog("Sent the data to RabbitMQ");
+                //_myService.WriteLog("Sent the data to RabbitMQ");
                 Task.Delay(20000);
             }
             catch (Exception ex)

@@ -22,7 +22,7 @@ public class Worker : BackgroundService
             await _manager.GetData();
             _logger.LogInformation("try to GetData() ");
             
-            await Task.Delay(15000, stoppingToken); 
+            await Task.Delay(3600000, stoppingToken); 
 
         }
     }
