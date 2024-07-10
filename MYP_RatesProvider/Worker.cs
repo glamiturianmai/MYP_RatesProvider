@@ -10,7 +10,7 @@ public class Worker : BackgroundService
     public Worker(ILogger<Worker> logger, RatesManager manager)
     {
         _logger = logger;
-        _manager = manager; //интерфейс
+        _manager = manager; 
        
     }
 

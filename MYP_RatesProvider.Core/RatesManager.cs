@@ -1,6 +1,5 @@
 ﻿using MassTransit;
 using Messaging.Shared;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 
@@ -16,7 +15,7 @@ public class RatesManager
     private RatesInfo _dictData;
 
 
-    public RatesManager( DataProvider dataProvider, MyService myService, IPublishEndpoint publishEndpoint)
+    public RatesManager(DataProvider dataProvider, MyService myService, IPublishEndpoint publishEndpoint)
     {
         _myService = myService;
         _dataProvider = dataProvider;
@@ -36,7 +35,6 @@ public class RatesManager
                 _logger.Information("Successfully received the data");
                 await _publishEndpoint.Publish<RatesInfo>(_dictData);
                 _logger.Information("Sent the data to RabbitMQ");
-                //_myService.WriteLog("Sent the data to RabbitMQ");
                 Task.Delay(20000);
             }
             catch (Exception ex)
@@ -48,7 +46,6 @@ public class RatesManager
 
             if (numberAttempts > 4)
             {
-                //отпавить письмо админу
                 _logger.Fatal("There are too many attempts to get data, there is a problem with currency sources");
                 break;
             }

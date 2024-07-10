@@ -1,9 +1,4 @@
 ﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MYP_RatesProvider.Core.Configuration
 {
@@ -11,7 +6,7 @@ namespace MYP_RatesProvider.Core.Configuration
     {
         private static async Task<Dictionary<string, string>> GetConfigurationSettings()
         {
-            var httpClientService = new HttpClientService(); //вот тут есть хуйня!
+            var httpClientService = new HttpClientService();
             var configurationSettings = await httpClientService.Get<Dictionary<string, string>>(ConfigurationSettings.ConfigurationServiceUrl, new CancellationToken());
 
             return configurationSettings;
@@ -20,9 +15,8 @@ namespace MYP_RatesProvider.Core.Configuration
         public static async Task<Dictionary<string, string>> ReadSettingsFromConfigurationManager(this IConfiguration configuration)
         {
             var configurationSettings = await GetConfigurationSettings();
-            //SetValueFromConfigurationManager(configuration.GetSection(ConfigurationSettings.LogPath), configurationSettings);
             configuration.ReadSection(ConfigurationSettings.CurrencyProviderSettings, configurationSettings);
-            
+
 
             return configurationSettings;
         }
@@ -49,7 +43,6 @@ namespace MYP_RatesProvider.Core.Configuration
         public static void UpdateSettingsFromConfigurationManager(this IConfiguration configuration, Dictionary<string, string> settings)
         {
             var defaultSection = configuration.GetSection(ConfigurationSettings.DefaultConfigurationSection);
-            //UpdateValueFromConfigurationManager(defaultSection.GetSection(ConfigurationSettings.LogPath), configuration.GetSection(ConfigurationSettings.LogPath), settings);
             configuration.UpdateSection(ConfigurationSettings.CurrencyProviderSettings, settings);
         }
 
