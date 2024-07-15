@@ -1,0 +1,13 @@
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\bin\Debug\net8.0\MYP_RatesProvider.Core.deps.json
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\bin\Debug\net8.0\MYP_RatesProvider.Core.dll
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\bin\Debug\net8.0\MYP_RatesProvider.Core.pdb
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\MYP_RatesProvider.Core.csproj.AssemblyReference.cache
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\MYP_RatesProvider.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\MYP_RatesProvider.Core.AssemblyInfoInputs.cache
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\MYP_RatesProvider.Core.AssemblyInfo.cs
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\MYP_RatesProvider.Core.csproj.CoreCompileInputs.cache
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\MYP_RatesProvider.Core.sourcelink.json
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\MYP_RatesProvider.Core.dll
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\refint\MYP_RatesProvider.Core.dll
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\MYP_RatesProvider.Core.pdb
+C:\Users\dns\Desktop\MiraculousBackend\MYP_RatesProvider\MYP_RatesProvider.Core\obj\Debug\net8.0\ref\MYP_RatesProvider.Core.dll
